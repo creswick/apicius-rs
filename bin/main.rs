@@ -62,7 +62,8 @@ fn realmain() -> Result<(), Box<dyn std::error::Error>> {
     }
 
     if opts.command.is_graph_command() {
-	writeln!(output, "producing graph")?;
+        let graph = render::svggraph::Graph::new(&s, &tree);
+	writeln!(output, "{}", graph.render())?;
     }
 
     Ok(())
