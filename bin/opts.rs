@@ -50,6 +50,10 @@ impl Opts {
                     .arg(arg!(--action_class <ACTION_CLASS>).required(false))
                     .arg(arg!(--done_class <DONE_CLASS>).required(false)),
             )
+	    .subcommand(
+		Opts::subcommand("svg-graph")
+		    .about("Convert the recipe to an SVG graph")
+	    )
             .get_matches();
         let (command, input, output) = match matches.subcommand() {
             // the basic debug ones
@@ -65,6 +69,9 @@ impl Opts {
             Some(("debug-table", opts)) => {
                 Opts::handle_subcommand(ApiciusCommand::DebugTable, opts)
             }
+	    Some(("svg-graph", opts)) => {
+		Opts::handle_subcommand(ApiciusCommand::SVGGraph, opts)
+	    }
             // table plus table options
             Some(("html-table", opts)) => {
                 let mut html_options = HTMLTableOptions::default();
@@ -139,6 +146,7 @@ impl Opts {
 #[derive(Debug)]
 pub enum ApiciusCommand {
     HTMLTable(HTMLTableOptions),
+    SVGGraph,
     DebugParseTree,
     DebugAnalysis,
     DebugBackwardTree,
@@ -151,5 +159,12 @@ impl ApiciusCommand {
             self,
             ApiciusCommand::HTMLTable { .. } | ApiciusCommand::DebugTable
         )
+    }
+
+    pub fn is_graph_command(&self) -> bool {
+	matches!(
+	    self,
+	    ApiciusCommand::SVGGraph
+	)
     }
 }

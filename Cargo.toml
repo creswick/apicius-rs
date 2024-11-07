@@ -26,6 +26,7 @@ cairo-rs = { version = "*", features = ["png"] }
 pango = "*"
 pangocairo = "*"
 clap = { version = "*", features = ["cargo"] }
+svg = "*"
 
 [dev-dependencies]
 pretty_assertions = "*"

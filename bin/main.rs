@@ -61,5 +61,9 @@ fn realmain() -> Result<(), Box<dyn std::error::Error>> {
         }
     }
 
+    if opts.command.is_graph_command() {
+	writeln!(output, "producing graph")?;
+    }
+
     Ok(())
 }
