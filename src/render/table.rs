@@ -206,8 +206,14 @@ impl<'a> TableGenerator<'a> {
     fn to_table(&self, focus: &'a BackwardTree, depth: usize) -> Vec<Vec<Cell<'a>>> {
         let mut vec = Vec::new();
         let mut first = true;
+	println!("Drawing:");
+	println!("  Ingredients: {}", focus.ingredients.len());
+	println!("  Actions: {}", focus.actions.len());
+	println!("  Paths: {}", focus.paths.len());
+
 
         for i in focus.ingredients.iter() {
+	    println!("ingredient!");
             let elem = Cell {
                 rowspan: 1,
                 colspan: depth - focus.actions.len() + 1,
